@@ -8,15 +8,7 @@ require 'sinatra'
 require 'uv'
 
 get '/' do
-  s = <<-END
-<p>POST data to /api</p>
-<p>curl \"http://ultraviolence.heroku.com/api?s=css&l=1\" -d '.abc {}'</p>
-<ul>
-  <li><code>?s or ?syntax</code> - specify syntax</li>
-  <li><code>?t or ?theme</code> - specify textmate theme (defaults to mac classic)</li>
-  <li><code>?l or ?line_numbers</code> - set to '1' to show line numbers</li>
-</ul>
-END
+  erb :index
 end
 
 post '/api' do
