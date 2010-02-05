@@ -1,4 +1,5 @@
 vendor = File.join(File.dirname(__FILE__), 'vendor')
+$LOAD_PATH.unshift File.expand_path(File.join(vendor, 'sinatra-0.9.4',       'lib'))
 $LOAD_PATH.unshift File.expand_path(File.join(vendor, 'spox-plist-3.0.1',    'lib'))
 $LOAD_PATH.unshift File.expand_path(File.join(vendor, 'spox-textpow-0.10.3', 'lib'))
 $LOAD_PATH.unshift File.expand_path(File.join(vendor, 'ultraviolet-0.10.5',  'lib'))
