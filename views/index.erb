@@ -1,7 +1,79 @@
-<p>POST data to /api</p>
-<p><code>curl "http://ultraviolence.heroku.com/api?s=css&amp;l=1" -d '.abc {}'</code></p>
-<ul>
-  <li><code>?s</code> or <code>?syntax</code> - specify syntax</li>
-  <li><code>?t</code> or <code>?theme</code> - specify textmate theme (defaults to mac classic)</li>
-  <li><code>?l</code> or <code>?line_numbers</code> - set to '1' to show line numbers</li>
-</ul>
+<!--
+_______ _____ _____ __   ___
+| ___  \  _  |  _  |  \ /  |
+| |  \ | | | | | | | . V . |
+| |  / | \_/ | \_/ | |\ /| |
+| | / / \   / \   /| | V | |
+| `' /   \_/   \_/ \_|   | |
+|___/                    \_|
+-->
+
+<html>
+  <head>
+    <% 
+      current_sy = syntax_for(params) || 'ruby' 
+      current_th = theme_for(params)
+    %>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/uv.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/themes/<%= current_th %>.css" />
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script src="/javascripts/uv.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form action="/format" id="uv-form">
+    <div id="container">
+      <div id="tabs">
+        <ul>
+          <li><a href="#tabs-edit"><span>Edit</span></a></li>
+          <li><a href="#tabs-result"><span>Result</span></a></li>
+          <li><a href="#tabs-source"><span>Source</span></a></li>
+          <li><a href="#tabs-api"><span>API</span></a></li>
+        </ul>
+
+        <div id="tabs-edit">
+          <p class="btns">
+            <select name="syntax">
+              <option>-- choose syntax --</option>
+            <% Uv.syntaxes.each do |sy| %>
+              <option value="<%= sy %>"<%= %( selected="selected") if sy == current_sy %>><%= sy %></option>
+            <% end %>
+            </select>
+            <select name="theme">
+              <option>-- choose theme --</option>
+            <% Uv.themes.each do |th| %>
+              <option value="<%= th %>"<%= %( selected="selected") if th == current_th %>><%= th %></option>
+            <% end %>
+            </select>
+          </p>
+          <p><textarea name="text"></textarea></p>
+          <p class="btns">
+            <label>
+              <input type="checkbox" name="line_numbers" value="1"<%= %( checked="checked") if (params[:line_numbers] || params[:l]) == '1' %> />
+              Show line numbers?
+            </label>
+            <input type="submit" value="Format" />
+          </p>
+        </div>
+
+        <div id="tabs-result">
+          <p>Send some text to format in the Edit tab.</p>
+        </div>
+
+        <div id="tabs-source">
+          <textarea name="src" id="src" readonly="readonly"></textarea>
+        </div>
+
+        <div id="tabs-api">
+          <p>POST data to /api</p>
+          <p><code>curl "http://ultraviolence.heroku.com/api?s=css&amp;l=1" -d '.abc {}'</code></p>
+          <ul>
+            <li><code>?s</code> or <code>?syntax</code> - specify syntax</li>
+            <li><code>?t</code> or <code>?theme</code> - specify textmate theme (defaults to mac classic)</li>
+            <li><code>?l</code> or <code>?line_numbers</code> - set to '1' to show line numbers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </form>
+  </body>
+</html>
