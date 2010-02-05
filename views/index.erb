@@ -15,9 +15,13 @@ _______ _____ _____ __   ___
       current_th = theme_for(params)
     %>
     <link type="text/css" rel="stylesheet" href="/stylesheets/uv.css" />
-    <link type="text/css" rel="stylesheet" href="/stylesheets/themes/<%= current_th %>.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script src="/javascripts/uv.js" type="text/javascript"></script>
+    <script type="text/javascript">
+google.setOnLoadCallback(function() {
+  loadTheme("<%= current_th %>");
+});
+    </script>
   </head>
   <body>
     <form action="/format" id="uv-form">
@@ -38,7 +42,7 @@ _______ _____ _____ __   ___
               <option value="<%= sy %>"<%= %( selected="selected") if sy == current_sy %>><%= sy %></option>
             <% end %>
             </select>
-            <select name="theme">
+            <select name="theme" id="theme">
               <option>-- choose theme --</option>
             <% Uv.themes.each do |th| %>
               <option value="<%= th %>"<%= %( selected="selected") if th == current_th %>><%= th %></option>
@@ -66,6 +70,7 @@ _______ _____ _____ __   ___
         <div id="tabs-api">
           <p class="img"><img src="/images/doomguy.png" /></p>
           <p>Don't bother trying to install the <a href="http://ultraviolet.rubyforge.org/">Ultraviolet gem</a>, just setup RestClient and go to town:</p>
+          <p>Find the themes in <code>/stylesheets/themes</code>, like <a href="/stylesheets/themes/mac_classic.css">/stylesheets/themes/mac_classic.css</a>.</p>
           <p>POST data to /api</p>
           <p><code>curl "http://ultraviolence.heroku.com/api?s=css&amp;l=1" -d '.abc {}'</code></p>
           <p><code>RestClient.post "http://ultraviolence.heroku.com/api?s=css&amp;l=1", %(.abc {})</code></p>
