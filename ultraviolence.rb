@@ -29,9 +29,10 @@ def uv(text, params)
 end
 
 def syntax_for(params)
-  if f = (params[:filename] || params[:f])
-    f.gsub(/[^\.]*\./, '')
-  else
+  f = (params[:filename] || params[:f]).to_s
+  if f.size.zero?
     params[:syntax] || params[:s]
+  else
+    f.gsub(/[^\.]*\./, '')
   end
 end
