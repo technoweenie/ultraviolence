@@ -13,7 +13,7 @@ get '/' do
   erb :index
 end
 
-post '/format' do
+get '/api' do
   uv params[:text], params
 end
 
