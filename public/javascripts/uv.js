@@ -5,6 +5,10 @@ google.setOnLoadCallback(function() {
   var nav = $('#tabs')
   nav.tabs();
 
+  nav.bind('tabsselect', function(event, ui) {
+    window.location.hash = ui.tab.hash
+  });
+
   $('#uv-form').submit(function() {
     var data = $(this).serialize();
     $.get("/api", data, function(result) {
