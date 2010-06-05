@@ -87,7 +87,7 @@ repository:
       captures: 
         "1": 
           name: punctuation.definition.comment.ruby
-      match: (?<=^|\s)(#)\s[[a-zA-Z0-9,. \t?!-][^\x00-\x7F]]*$
+      match: (?<=^|\s)(#)\s[[a-zA-Z0-9,. \t?!-][^\x{00}-\x{7F}]]*$
       comment: We are restrictive in what we allow to go after the comment character to avoid false positives, since the availability of comments depend on regexp flags.
   heredoc: 
     begin: ^<<-?\w+
